@@ -123,7 +123,7 @@ def callback():
         picture = userinfo_response.json()["picture"]
         users_name = userinfo_response.json()["given_name"]
     else:
-        return "User email not available or not verified by Google.", 400
+        return ("User email not available or not verified by Google.", 400)
 
     # Create a user in your db with the information provided
     # by Google
@@ -148,4 +148,4 @@ def logout():
     return redirect(url_for("index"))
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc")
+    app.run(ssl_context="adhoc", debug = True)
