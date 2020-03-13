@@ -1,0 +1,24 @@
+For Google Sign in 
+
+https://realpython.com/flask-google-login/
+
+Using SSH connection to connect to NodeMCU
+
+
+
+Uploading AES-256 encryption and decryption algorithm.
+
+
+
+Creating a RSA or DH key encryption  Algorithm.
+
+Files encryption and uploading to server.
+
+
+Files downloading and decryption to the client using AES-256 and RSA key.
+
+Checking RSA-Keys constantly.
+
+If key is not a expected blacklist the user and do not to connect to the user within the interval of 1 hour.
+
+Creating a new session to the connected user, providing different keys.
