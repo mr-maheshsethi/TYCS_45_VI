@@ -3,7 +3,7 @@ import os
 import sqlite3
 
 # Third-party libraries
-from flask import Flask, redirect, request, url_for
+from flask import Flask, redirect, request, url_for, render_template
 from flask_login import (
     LoginManager,
     current_user,
@@ -21,9 +21,7 @@ from user import User
 # Configuration
 GOOGLE_CLIENT_ID = "615935139029-2sotfhhrr2eok0f8c71qn80vas436s44.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET = "NPEuEzDYjPUYER6mG6XPMTVX"
-GOOGLE_DISCOVERY_URL = (
-    "https://accounts.google.com/.well-known/openid-configuration"
-)
+GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configuration")
 
 # Flask app setup
 app = Flask(__name__)
@@ -38,6 +36,7 @@ login_manager.init_app(app)
 try:
     init_db_command()
 except sqlite3.OperationalError:
+    print("Database Already present")
     # Assume it's already been created
     pass
 
@@ -52,16 +51,14 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
+        cred = {'al_logged_usrnm':current_user.name,'al_logged_email':current_user.email,'al_logged_pro_pic':current_user.profile_pic}
+        return render_template('home.html', home = cred)
+        '''("<p>Hello, {}! You're logged in! Email: {}</p>"
             "<div><p>Google Profile Picture:</p>"
             '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
+            '<a class="button" href="/logout">Logout</a>'.format(current_user.name, current_user.email, current_user.profile_pic))'''
     else:
-        return '<a class="button" href="/login">Google Login</a>'
+        return render_template('signin.html')
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
