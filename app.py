@@ -21,13 +21,7 @@ from user import User
 # Configuration
 GOOGLE_CLIENT_ID = "615935139029-2sotfhhrr2eok0f8c71qn80vas436s44.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET = "NPEuEzDYjPUYER6mG6XPMTVX"
-<<<<<<< HEAD
 GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configuration")
-=======
-GOOGLE_DISCOVERY_URL = (
-    "https://accounts.google.com/.well-known/openid-configuration"
-)
->>>>>>> cfeb01dab6be38b8055515782e6c577c476531f5
 
 # Flask app setup
 app = Flask(__name__)
@@ -64,10 +58,14 @@ def index():
             '<img src="{}" alt="Google profile pic"></img></div>'
             '<a class="button" href="/logout">Logout</a>'.format(current_user.name, current_user.email, current_user.profile_pic))'''
     else:
-        return render_template('signin.html')
+        return render_template('index.html')
 
 def get_google_provider_cfg():
-    return requests.get(GOOGLE_DISCOVERY_URL).json()
+    try:
+        return requests.get(GOOGLE_DISCOVERY_URL).json()
+    except ConnectionError as e:
+        return render_template('404.html'),404
+    
 
 @app.route("/login")
 def login():

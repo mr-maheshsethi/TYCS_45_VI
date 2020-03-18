@@ -1,0 +1,16 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>Hello, {{ home['al_logged_usrnm'] }}! You're logged in! Email: {{home['al_logged_email']}}</p>
+    <div>
+        <p>Google Profile Picture:</p>
+        <img src="{{ home['al_logged_pro_pic'] }}" alt="Google profile pic"></img>
+    </div>
+    <a class="button" href="/logout">Logout</a>
+</body>
+</html> 
